@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Autism Screening Questionnaire</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <style>
+        /* Additional style to enhance visibility of slider thumb and track */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 20%;
+            height: 15px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Autism Screening Questionnaire</h1>
+        <form method="POST">
+            {% for question in questions %}
+                <div>
+                    <label for="{{ question.id }}"><h4>{{ question.text }}</h4></label>
+                    <input type="range" id="{{ question.id }}" name="{{ question.id }}" min="1" max="5" value="3" oninput="updateSliderColor(this)">
+                    <span id="value_{{ question.id }}"></span> <!-- Display for slider value -->
+                </div>
+            {% endfor %}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        function updateSliderColor(slider) {
+            var value = slider.value;
+            var color;
+            if (value <= 2) {
+                color = 'green';
+            } else if (value == 3) {
+                color = 'yellow';
+            } else if (value == 4) {
+            color = 'orange';
+            } else if (value > 4) {
+                color = 'blue';
+            }
+            slider.style.background = `linear-gradient(to right, ${color}, ${color} ${(value-1)/4*100}%, #ddd ${(value-1)/4*100}%, #ddd 100%)`;
+        }
+
+        // Initialize all sliders with the correct colors
+        document.addEventListener("DOMContentLoaded", function() {
+            var sliders = document.querySelectorAll('input[type="range"]');
+            sliders.forEach(function(slider) {
+                updateSliderColor(slider);
+            });
+        });
+    </script>
+</body>
+</html>

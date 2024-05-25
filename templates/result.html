@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionnaire Result</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <nav>
+        <a href="/about" class="button">ASD Information</a>
+        <a href="/" class="button">Home</a>
+    </nav>
+</head>
+<body>
+    <div class="container">
+        <h1>Assessment Result</h1>
+        <p>Your assessment has been completed. Here is the result:</p>
+        <p><strong>{{ likelihood }}</strong></p>
+
+        <!-- Display graphs -->
+        <img src="/static/radar_chart.png" alt="Radar Chart" width="500">
+
+        <a href="/{{ most_severe_area }}" class="button">help with {{ most_severe_area }} managment</a>
+        <!-- Additional buttons or links can be added here -->
+    </div>
+</body>
+</html>
